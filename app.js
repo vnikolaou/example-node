@@ -43,7 +43,7 @@ app.set('port', port);
 
 routes.initialize(app, router);
 
-mongoose.connect('mongodb://localhost:27017/imgPloadr');
+mongoose.connect('mongodb://vnik:vnik@ds059694.mongolab.com:59694/heroku_731vv05c');
 mongoose.connection.on('open', function() {
 	console.log('Mongoose connected.');
 });
