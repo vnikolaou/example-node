@@ -1,7 +1,7 @@
 var fs = require('fs'),
 	path = require('path'),
 	Models = require('../models'),
-	md5 = require('MD5');
+	md5 = require('md5');
 	
 var sidebar = require('../helpers/sidebar');
 	
