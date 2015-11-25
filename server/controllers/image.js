@@ -97,8 +97,13 @@ module.exports = {
 					var tempPath = req.files.file.path,
 						ext = path.extname(req.files.file.name).toLowerCase(),
 						targetPath = path.resolve('./public/upload/' + imgUrl + ext);
+						
 					if (ext === '.png' || ext === '.jpg' || ext === '.jpeg' || ext === '.gif') {
-						fs.rename(tempPath, targetPath, function(err) {
+						var is = fs.createReadStream(tempPath);
+						var os = fs.createWriteStream(targetPath);
+					
+						is.pipe(os);
+						is.on('end', function(err) {
 							if (err) { throw err; }
 							/* Start new code: */
 							// create a new Image model, populate its details:
@@ -112,6 +117,8 @@ module.exports = {
 								res.redirect('/images/' + image.uniqueId);
 							});
 							/* End new code: */
+							
+							fs.unlinkSync(tempPath);
 						});
 					} else {
 						fs.unlink(tempPath, function () {
